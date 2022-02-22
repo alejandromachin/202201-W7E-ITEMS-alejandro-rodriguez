@@ -28,4 +28,11 @@ const getLogin = async (req, res, next) => {
   }
 };
 
-module.exports = { getLogin };
+const registerUser = async (req, res, next) => {
+  const user = req.body;
+
+  await User.create(user);
+  res.json(user);
+};
+
+module.exports = { getLogin, registerUser };
