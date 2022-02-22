@@ -12,6 +12,6 @@ const mongoConnection = process.env.MONGODB_STRING;
     await connectDB(mongoConnection);
     await startServer(port);
   } catch (error) {
-    debug(chalk.red(`Error: `, error.message));
+    debug(chalk.red("Error: ", error.message));
   }
 })();
