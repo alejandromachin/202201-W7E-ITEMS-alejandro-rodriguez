@@ -1,22 +1,39 @@
 {
-  "name": "items",
+  "name": "items-api",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "start-dev": "nodemon . -q",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src",
+    "start-dev": "nodemon src -q",
+    "test": "jest --watchAll",
+    "test-coverage": "jest --watchAll --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.9.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "nodemon": "^2.0.15"
+  },
   "dependencies": {
+    "@types/jest": "^27.4.0",
+    "chalk": "^4.1.2",
     "debug": "^4.3.3",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "mongoose": "^6.2.3",
-    "morgan": "^1.10.0",
-    "nodemon": "^2.0.15"
+    "helmet": "^5.0.2",
+    "jest": "^27.5.1",
+    "mongoose": "^6.2.2",
+    "morgan": "^1.10.0"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/index.js"
+    ]
   }
 }

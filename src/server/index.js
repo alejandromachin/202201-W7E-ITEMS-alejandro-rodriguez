@@ -1,24 +1,29 @@
 require("dotenv").config();
+const debug = require("debug")("items:server");
+const chalk = require("chalk");
 const express = require("express");
-const debug = require("debug")("things:server");
+const helmet = require("helmet");
 const morgan = require("morgan");
+const { notFoundError, generalError } = require("./middlewares/errors");
 
 const app = express();
 
-app.use(morgan("dev"));
-
-const serverUp = async (port) => {
+const startServer = (port) =>
   new Promise((resolve, reject) => {
     const server = app.listen(port, () => {
-      debug(`Server up in http://localhost:${port}`);
+      debug(chalk.yellow(`Server listening on http://localhost:${port}`));
       resolve();
     });
+
     server.on("error", (error) => {
-      const message =
-        error.code === "EADDRINUSE" ? `Port ${port} busy` : error.message;
-      reject(new Error(`Error on server: ${message}`));
+      reject(error);
     });
   });
-};
 
-module.exports = serverUp;
+app.use(morgan("dev"));
+app.use(helmet());
+
+app.use(notFoundError);
+app.use(generalError);
+
+module.exports = startServer;
